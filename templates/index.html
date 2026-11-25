@@ -57,7 +57,7 @@
         }
 
         .glass-header {
-            background: rgba(11, 16, 29, 0.82);
+            background: rgba(11, 16, 29, 0.85);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
         }
@@ -67,7 +67,7 @@
         }
     </style>
 </head>
-<body class="bg-dark-bg text-slate-100 flex h-screen font-sans antialiased overflow-hidden">
+<body class="bg-dark-bg text-slate-100 flex h-dvh font-sans antialiased overflow-hidden">
 
     <!-- MOBILE SIDEBAR BACKDROP -->
     <div id="mobileBackdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-30 hidden md:hidden"></div>
@@ -161,26 +161,26 @@
     </aside>
 
     <!-- MAIN WORKSPACE -->
-    <main class="flex-1 flex flex-col h-full bg-dark-bg bg-grid-pattern relative min-w-0">
+    <main class="flex-1 flex flex-col h-full min-h-0 bg-dark-bg bg-grid-pattern relative min-w-0">
 
         <!-- Top Navigation Bar -->
-        <header class="px-5 md:px-8 py-3.5 border-b border-dark-border flex justify-between items-center glass-header z-20">
-            <div class="flex items-center gap-3">
-                <button onclick="toggleSidebar()" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg bg-dark-card border border-dark-border">
+        <header class="shrink-0 px-4 sm:px-8 py-3 border-b border-dark-border flex justify-between items-center glass-header z-20">
+            <div class="flex items-center gap-2.5 min-w-0">
+                <button onclick="toggleSidebar()" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg bg-dark-card border border-dark-border shrink-0">
                     <i class="fa-solid fa-bars text-xs"></i>
                 </button>
-                <div>
+                <div class="min-w-0">
                     <div class="flex items-center gap-2">
-                        <h2 class="font-bold text-sm text-white tracking-tight">Natural Language SQL Intelligence</h2>
-                        <span class="hidden sm:inline-flex items-center gap-1 text-[10px] font-medium text-brand-400 bg-brand-500/10 border border-brand-500/20 px-2 py-0.5 rounded-full">
+                        <h2 class="font-bold text-xs sm:text-sm text-white tracking-tight truncate">Natural Language SQL Intelligence</h2>
+                        <span class="hidden sm:inline-flex items-center gap-1 text-[10px] font-medium text-brand-400 bg-brand-500/10 border border-brand-500/20 px-2 py-0.5 rounded-full shrink-0">
                             <i class="fa-solid fa-shield-halved text-[9px]"></i> SELECT-Only Guard
                         </span>
                     </div>
-                    <p class="text-[11px] text-slate-400">Query, filter, paginate, and export large relational datasets</p>
+                    <p class="text-[10px] sm:text-[11px] text-slate-400 truncate">Query, filter, paginate, and export large relational datasets</p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 shrink-0">
                 <button onclick="toggleSchemaDrawer(true)" class="hidden sm:flex items-center gap-1.5 text-xs font-medium text-slate-300 hover:text-white bg-dark-card hover:bg-dark-surface border border-dark-border px-3 py-1.5 rounded-lg transition">
                     <i class="fa-solid fa-database text-brand-400 text-[11px]"></i> Schema
                 </button>
@@ -191,36 +191,36 @@
         </header>
 
         <!-- Chat & Data Feed -->
-        <div id="chatContainer" class="flex-1 overflow-y-auto px-4 md:px-8 py-6 space-y-6">
+        <div id="chatContainer" class="flex-1 min-h-0 overflow-y-auto px-3 sm:px-8 py-5 space-y-6">
 
             <!-- WELCOME EXECUTIVE DASHBOARD -->
-            <div id="welcomeScreen" class="max-w-4xl mx-auto py-4 md:py-8 space-y-8">
+            <div id="welcomeScreen" class="max-w-4xl mx-auto py-2 sm:py-6 space-y-6 sm:space-y-8">
                 <!-- Hero Banner -->
-                <div class="bg-dark-card/90 border border-dark-border rounded-2xl p-6 md:p-8 relative overflow-hidden">
+                <div class="bg-dark-card/90 border border-dark-border rounded-2xl p-5 sm:p-8 relative overflow-hidden">
                     <div class="absolute -right-16 -top-16 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-5 relative z-10">
                         <div class="space-y-2 max-w-xl">
                             <div class="inline-flex items-center gap-2 text-[11px] font-semibold text-brand-400 bg-brand-500/10 border border-brand-500/20 px-2.5 py-1 rounded-full">
                                 <i class="fa-solid fa-sparkles"></i> AI-Powered Relational Analytics
                             </div>
-                            <h2 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+                            <h2 class="text-xl sm:text-3xl font-extrabold text-white tracking-tight">
                                 Query your delivery organization at scale
                             </h2>
-                            <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                            <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
                                 Ask complex joins, aggregations, client engagements, career-level pyramids, certifications, incidents, and attendance logs in plain English. Results render in a paginated grid with search, sorting, and CSV export.
                             </p>
                         </div>
 
                         <!-- Quick DB Telemetry Cards -->
                         <div class="grid grid-cols-2 gap-3 shrink-0">
-                            <div class="bg-dark-bg/90 border border-dark-border p-3.5 rounded-xl min-w-[125px]">
+                            <div class="bg-dark-bg/90 border border-dark-border p-3 sm:p-3.5 rounded-xl min-w-[115px] sm:min-w-[125px]">
                                 <span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Schema</span>
-                                <p class="text-xl font-extrabold text-white mt-0.5">10 Tables</p>
+                                <p class="text-lg sm:text-xl font-extrabold text-white mt-0.5">10 Tables</p>
                                 <span class="text-[10px] text-emerald-400">Enterprise Org</span>
                             </div>
-                            <div class="bg-dark-bg/90 border border-dark-border p-3.5 rounded-xl min-w-[125px]">
+                            <div class="bg-dark-bg/90 border border-dark-border p-3 sm:p-3.5 rounded-xl min-w-[115px] sm:min-w-[125px]">
                                 <span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Grid Engine</span>
-                                <p class="text-xl font-extrabold text-brand-400 mt-0.5">100/pg</p>
+                                <p class="text-lg sm:text-xl font-extrabold text-brand-400 mt-0.5">100/pg</p>
                                 <span class="text-[10px] text-slate-400">Sort & CSV Ready</span>
                             </div>
                         </div>
@@ -275,19 +275,19 @@
 
         </div>
 
-        <!-- BOTTOM COMMAND INPUT -->
-        <footer class="px-4 md:px-8 py-4 glass-header border-t border-dark-border z-20">
+        <!-- BOTTOM COMMAND INPUT (PINNED & MOBILE-RESPONSIVE) -->
+        <footer class="shrink-0 px-3 sm:px-8 py-3 glass-header border-t border-dark-border z-20">
             <form id="chatForm" class="max-w-5xl mx-auto relative flex items-center">
-                <div class="absolute left-4 text-slate-400 pointer-events-none">
+                <div class="absolute left-3.5 text-slate-400 pointer-events-none">
                     <i class="fa-solid fa-terminal text-xs text-brand-400"></i>
                 </div>
                 <input type="text" id="userInput" autocomplete="off"
-                       placeholder="Ask a cross-table question (e.g., 'Show work_mode breakdown and average hours_logged on 2026-11-25 by location')..."
-                       class="w-full bg-dark-card border border-dark-border rounded-xl pl-10 pr-28 py-3.5 text-xs md:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition shadow-lg">
+                       placeholder="Ask a data question..."
+                       class="w-full bg-dark-card border border-dark-border rounded-xl pl-9 pr-14 sm:pr-28 py-3 text-xs sm:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition shadow-lg">
 
-                <button type="submit" class="absolute right-2 bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-700 text-white px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition shadow-md shadow-brand-500/25 active:scale-95">
-                    <span>Run Query</span>
-                    <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                <button type="submit" aria-label="Run Query" class="absolute right-1.5 bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-700 text-white px-3 sm:px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition shadow-md shadow-brand-500/25 active:scale-95">
+                    <span class="hidden sm:inline">Run Query</span>
+                    <i class="fa-solid fa-paper-plane text-[11px] sm:text-[10px]"></i>
                 </button>
             </form>
         </footer>
@@ -567,7 +567,7 @@
             const wrapper = document.createElement('div');
             wrapper.className = 'max-w-5xl mx-auto flex justify-end';
             wrapper.innerHTML = `
-                <div class="bg-gradient-to-r from-brand-700 to-brand-600 text-white font-medium px-5 py-3 rounded-2xl rounded-tr-sm max-w-2xl text-xs md:text-sm shadow-md">
+                <div class="bg-gradient-to-r from-brand-700 to-brand-600 text-white font-medium px-4 sm:px-5 py-3 rounded-2xl rounded-tr-sm max-w-2xl text-xs sm:text-sm shadow-md">
                     ${escapeHtml(text)}
                 </div>
             `;
@@ -617,7 +617,7 @@
             const wrapper = document.createElement('div');
             wrapper.className = 'max-w-5xl mx-auto flex justify-start';
             wrapper.innerHTML = `
-                <div id="${cardId}" class="bg-dark-card border border-dark-border text-slate-200 p-5 rounded-2xl rounded-tl-sm w-full space-y-4 shadow-xl">
+                <div id="${cardId}" class="bg-dark-card border border-dark-border text-slate-200 p-4 sm:p-5 rounded-2xl rounded-tl-sm w-full space-y-4 shadow-xl">
                     <!-- Top Status Bar -->
                     <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-dark-border">
                         <div class="flex items-center gap-2.5">
