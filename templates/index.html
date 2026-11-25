@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataMind AI - Enterprise Database Intelligence</title>
+    <title>DataMind AI — Enterprise SQL & Data Intelligence</title>
 
-    <!-- Modern Typography: Plus Jakarta Sans -->
+    <!-- Fonts: Plus Jakarta Sans & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Pro Icons -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
@@ -22,20 +22,22 @@
                 extend: {
                     fontFamily: {
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
                     },
                     colors: {
                         brand: {
-                            50: '#f5f3ff',
+                            400: '#8b80f9',
                             500: '#7568F5',
                             600: '#6352f2',
                             700: '#4f3ddb',
                         },
                         dark: {
-                            bg: '#090D16',
-                            sidebar: '#0E1424',
-                            card: '#141C30',
-                            border: '#1F2B48',
-                            hover: '#1B2642'
+                            bg: '#070A12',
+                            sidebar: '#0B101D',
+                            card: '#111827',
+                            surface: '#161F33',
+                            border: '#1E293B',
+                            hover: '#1D283A'
                         }
                     }
                 }
@@ -44,206 +46,476 @@
     </script>
 
     <style>
-        /* Custom Ultra-thin Modern Scrollbar */
-        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #1F2B48; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #7568F5; }
+        ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-        /* Smooth Glassmorphism */
-        .glass-panel {
-            background: rgba(20, 28, 48, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(31, 43, 72, 0.8);
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(117, 104, 245, 0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
         }
 
-        /* Pulse glow effect for AI */
+        .glass-header {
+            background: rgba(11, 16, 29, 0.82);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
         .ai-glow {
-            box-shadow: 0 0 25px -5px rgba(117, 104, 245, 0.35);
+            box-shadow: 0 0 28px -6px rgba(117, 104, 245, 0.45);
         }
     </style>
 </head>
-<body class="bg-dark-bg text-slate-100 flex h-screen font-sans antialiased overflow-hidden select-none">
+<body class="bg-dark-bg text-slate-100 flex h-screen font-sans antialiased overflow-hidden">
+
+    <!-- MOBILE SIDEBAR BACKDROP -->
+    <div id="mobileBackdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-30 hidden md:hidden"></div>
 
     <!-- SIDEBAR -->
-    <aside class="w-72 bg-dark-sidebar p-5 flex flex-col border-r border-dark-border/80 hidden md:flex justify-between">
-        <div>
-            <!-- Branding -->
-            <div class="flex items-center gap-3.5 mb-7">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-700 via-brand-500 to-indigo-400 flex items-center justify-center text-white ai-glow">
-                    <i class="fa-solid fa-cube text-lg"></i>
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-40 w-72 bg-dark-sidebar border-r border-dark-border flex flex-col justify-between p-5 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-out">
+        <div class="flex flex-col min-h-0 flex-1">
+            <!-- Brand Header -->
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-700 via-brand-500 to-indigo-400 flex items-center justify-center text-white ai-glow shrink-0">
+                        <i class="fa-solid fa-layer-group text-base"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="font-bold text-base tracking-tight text-white">DataMind AI</h1>
+                            <span class="text-[9px] bg-brand-500/15 text-brand-400 border border-brand-500/30 px-1.5 py-0.5 rounded font-semibold tracking-wider">ENTERPRISE</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-medium tracking-widest uppercase">SQL Analytics Engine</span>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="font-bold text-base tracking-tight text-white flex items-center gap-2">
-                        DataMind AI
-                        <span class="text-[9px] bg-brand-500/20 text-brand-500 border border-brand-500/30 px-1.5 py-0.5 rounded-full font-semibold">PRO</span>
-                    </h1>
-                    <span class="text-[10px] text-slate-400 font-medium tracking-wider">DATABASE INTELLIGENCE</span>
-                </div>
+                <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
 
-            <!-- New Chat Button -->
-            <button onclick="clearChat()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-700 text-white font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 mb-6 transition-all duration-200 shadow-lg shadow-brand-500/20 active:scale-[0.98]">
-                <i class="fa-solid fa-plus text-xs"></i> New Conversation
+            <!-- Primary CTA -->
+            <button onclick="clearChat()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-700 text-white font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 mb-6 transition shadow-lg shadow-brand-500/20 active:scale-[0.99] text-xs">
+                <i class="fa-solid fa-plus"></i> New Analysis Session
             </button>
 
-            <!-- Navigation Sections -->
-            <div class="space-y-6">
+            <!-- Navigation -->
+            <div class="space-y-5 flex-1 overflow-y-auto pr-1">
                 <div>
-                    <span class="text-[10px] font-bold text-slate-400 tracking-wider uppercase px-2 mb-2 block">Workspace</span>
+                    <span class="text-[10px] font-bold text-slate-500 tracking-wider uppercase px-2 mb-2 block">Data Workspace</span>
                     <nav class="space-y-1">
-                        <a href="#" class="flex items-center justify-between py-2.5 px-3 rounded-xl text-slate-300 hover:bg-dark-card hover:text-white transition text-xs font-medium">
-                            <span class="flex items-center gap-3">
-                                <i class="fa-solid fa-database text-brand-500"></i> Database Explorer
+                        <button onclick="toggleSchemaDrawer(true)" class="w-full flex items-center justify-between py-2.5 px-3 rounded-xl text-slate-300 hover:bg-dark-surface hover:text-white transition text-xs font-medium group">
+                            <span class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-diagram-project text-brand-400 group-hover:scale-110 transition"></i> Schema Explorer
                             </span>
-                            <span class="text-[10px] bg-dark-bg text-slate-400 px-2 py-0.5 rounded-md border border-dark-border">v1.0</span>
-                        </a>
-                        <a href="#" class="flex items-center justify-between py-2.5 px-3 rounded-xl text-slate-300 hover:bg-dark-card hover:text-white transition text-xs font-medium">
-                            <span class="flex items-center gap-3">
-                                <i class="fa-solid fa-clock-rotate-left text-slate-400"></i> Query History
+                            <span class="text-[10px] bg-dark-bg text-slate-400 px-2 py-0.5 rounded border border-dark-border">10 Tables</span>
+                        </button>
+                        <button onclick="sendSuggestion('Show all employees joined with their department name, location, career level, and manager name')" class="w-full flex items-center justify-between py-2.5 px-3 rounded-xl text-slate-300 hover:bg-dark-surface hover:text-white transition text-xs font-medium group">
+                            <span class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-table-list text-emerald-400"></i> Master Roster
                             </span>
-                        </a>
+                            <i class="fa-solid fa-bolt text-[10px] text-slate-500 group-hover:text-brand-400"></i>
+                        </button>
                     </nav>
+                </div>
+
+                <!-- Recent Query History -->
+                <div>
+                    <div class="flex items-center justify-between px-2 mb-2">
+                        <span class="text-[10px] font-bold text-slate-500 tracking-wider uppercase">Recent Queries</span>
+                        <button onclick="clearHistory()" class="text-[10px] text-slate-500 hover:text-slate-300 transition">Clear</button>
+                    </div>
+                    <div id="historyList" class="space-y-1">
+                        <p class="text-[11px] text-slate-500 px-2 py-2 italic">No recent queries yet.</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Sidebar Footer -->
-        <div class="space-y-3 pt-4 border-t border-dark-border/60">
-            <!-- Connection Pill -->
+        <div class="space-y-3 pt-4 border-t border-dark-border/80 mt-4">
             <div class="bg-dark-card border border-dark-border p-3 rounded-xl flex items-center justify-between text-xs">
                 <div class="flex items-center gap-2.5">
-                    <span class="relative flex h-2.5 w-2.5">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
-                    <span class="text-slate-300 font-semibold text-[11px]">company.db</span>
+                    <div>
+                        <p class="text-slate-200 font-semibold text-[11px] leading-none">company.db</p>
+                        <p class="text-[10px] text-slate-500 mt-1">SQLite3 • Relational</p>
+                    </div>
                 </div>
-                <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-medium border border-emerald-500/20">Active</span>
+                <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-medium border border-emerald-500/20">Connected</span>
             </div>
 
-            <!-- Profile Info -->
-            <div class="flex items-center gap-3 p-1">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-500 to-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-md">
-                    A
+            <div class="flex items-center gap-3 px-1">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-brand-500 text-white flex items-center justify-center font-bold text-xs shadow">
+                    AD
                 </div>
                 <div class="flex-1 min-w-0">
-                    <p class="text-xs font-bold text-white truncate">Admin User</p>
-                    <p class="text-[10px] text-slate-400 truncate">admin@datamind.ai</p>
+                    <p class="text-xs font-semibold text-white truncate">Enterprise Admin</p>
+                    <p class="text-[10px] text-slate-400 truncate">BI Workspace • v2.4</p>
                 </div>
-                <i class="fa-solid fa-ellipsis-vertical text-slate-400 text-xs hover:text-white cursor-pointer px-1"></i>
             </div>
         </div>
     </aside>
 
-    <!-- MAIN CHAT PANEL -->
-    <main class="flex-1 flex flex-col h-full bg-dark-bg relative">
+    <!-- MAIN WORKSPACE -->
+    <main class="flex-1 flex flex-col h-full bg-dark-bg bg-grid-pattern relative min-w-0">
 
-        <!-- Top Header Bar -->
-        <header class="px-8 py-4 border-b border-dark-border/80 flex justify-between items-center glass-panel z-10">
+        <!-- Top Navigation Bar -->
+        <header class="px-5 md:px-8 py-3.5 border-b border-dark-border flex justify-between items-center glass-header z-20">
             <div class="flex items-center gap-3">
-                <div class="md:hidden w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center text-white">
-                    <i class="fa-solid fa-cube"></i>
-                </div>
+                <button onclick="toggleSidebar()" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg bg-dark-card border border-dark-border">
+                    <i class="fa-solid fa-bars text-xs"></i>
+                </button>
                 <div>
-                    <h2 class="font-bold text-sm text-white tracking-tight flex items-center gap-2">
-                        Natural Language SQL Engine
-                    </h2>
-                    <p class="text-[11px] text-slate-400">Powered by Gemini 2.5 Flash & SQLite</p>
+                    <div class="flex items-center gap-2">
+                        <h2 class="font-bold text-sm text-white tracking-tight">Natural Language SQL Intelligence</h2>
+                        <span class="hidden sm:inline-flex items-center gap-1 text-[10px] font-medium text-brand-400 bg-brand-500/10 border border-brand-500/20 px-2 py-0.5 rounded-full">
+                            <i class="fa-solid fa-shield-halved text-[9px]"></i> SELECT-Only Guard
+                        </span>
+                    </div>
+                    <p class="text-[11px] text-slate-400">Query, filter, paginate, and export large relational datasets</p>
                 </div>
             </div>
-            
+
             <div class="flex items-center gap-2">
-                <button onclick="clearChat()" title="Reset Session" class="text-slate-400 hover:text-white hover:bg-dark-card p-2 rounded-lg transition text-xs border border-transparent hover:border-dark-border">
-                    <i class="fa-solid fa-arrows-rotate"></i>
+                <button onclick="toggleSchemaDrawer(true)" class="hidden sm:flex items-center gap-1.5 text-xs font-medium text-slate-300 hover:text-white bg-dark-card hover:bg-dark-surface border border-dark-border px-3 py-1.5 rounded-lg transition">
+                    <i class="fa-solid fa-database text-brand-400 text-[11px]"></i> Schema
+                </button>
+                <button onclick="clearChat()" title="Reset Workspace" class="text-slate-400 hover:text-white bg-dark-card hover:bg-dark-surface border border-dark-border p-2 rounded-lg transition text-xs">
+                    <i class="fa-solid fa-rotate-right"></i>
                 </button>
             </div>
         </header>
 
-        <!-- Chat Scroll Area -->
-        <div id="chatContainer" class="flex-1 overflow-y-auto p-6 md:p-10 space-y-6">
+        <!-- Chat & Data Feed -->
+        <div id="chatContainer" class="flex-1 overflow-y-auto px-4 md:px-8 py-6 space-y-6">
 
-            <!-- WELCOME DASHBOARD SCREEN -->
-            <div id="welcomeScreen" class="h-full flex flex-col items-center justify-center text-center max-w-2xl mx-auto py-10">
-                <div class="relative mb-6">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white text-2xl ai-glow">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <!-- WELCOME EXECUTIVE DASHBOARD -->
+            <div id="welcomeScreen" class="max-w-4xl mx-auto py-4 md:py-8 space-y-8">
+                <!-- Hero Banner -->
+                <div class="bg-dark-card/90 border border-dark-border rounded-2xl p-6 md:p-8 relative overflow-hidden">
+                    <div class="absolute -right-16 -top-16 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+                        <div class="space-y-2 max-w-xl">
+                            <div class="inline-flex items-center gap-2 text-[11px] font-semibold text-brand-400 bg-brand-500/10 border border-brand-500/20 px-2.5 py-1 rounded-full">
+                                <i class="fa-solid fa-sparkles"></i> AI-Powered Relational Analytics
+                            </div>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+                                Query your delivery organization at scale
+                            </h2>
+                            <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                                Ask complex joins, aggregations, client engagements, career-level pyramids, certifications, incidents, and attendance logs in plain English. Results render in a paginated grid with search, sorting, and CSV export.
+                            </p>
+                        </div>
+
+                        <!-- Quick DB Telemetry Cards -->
+                        <div class="grid grid-cols-2 gap-3 shrink-0">
+                            <div class="bg-dark-bg/90 border border-dark-border p-3.5 rounded-xl min-w-[125px]">
+                                <span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Schema</span>
+                                <p class="text-xl font-extrabold text-white mt-0.5">10 Tables</p>
+                                <span class="text-[10px] text-emerald-400">Enterprise Org</span>
+                            </div>
+                            <div class="bg-dark-bg/90 border border-dark-border p-3.5 rounded-xl min-w-[125px]">
+                                <span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Grid Engine</span>
+                                <p class="text-xl font-extrabold text-brand-400 mt-0.5">100/pg</p>
+                                <span class="text-[10px] text-slate-400">Sort & CSV Ready</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight mb-2">
-                    Ask anything about your data
-                </h2>
-                <p class="text-xs md:text-sm text-slate-400 max-w-md mb-8 leading-relaxed">
-                    DataMind AI translates complex questions into instant SQL queries and visual tables.
-                </p>
+                <!-- Categorized Analytical Prompts -->
+                <div>
+                    <div class="flex items-center justify-between mb-3 px-1">
+                        <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Recommended Enterprise Queries</span>
+                        <span class="text-[11px] text-slate-500">Click to execute</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                        <button onclick="sendSuggestion('Show all clients with tier, annual contract value, active project count, and total project budget')" class="group bg-dark-card/80 hover:bg-dark-surface border border-dark-border hover:border-brand-500/50 p-4 rounded-xl text-left transition-all">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded">Client Portfolio</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[11px] text-slate-500 group-hover:text-brand-400 transition"></i>
+                            </div>
+                            <p class="font-bold text-xs md:text-sm text-slate-100 group-hover:text-white">Enterprise Accounts & Contract Value</p>
+                            <p class="text-[11px] text-slate-400 mt-1">Compare Platinum/Gold client tiers, contract values, and active engagements.</p>
+                        </button>
 
-                <!-- Prompt Suggestion Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full">
-                    <button onclick="sendSuggestion('Who earns more than 90000?')" class="group bg-dark-card/60 hover:bg-dark-card border border-dark-border hover:border-brand-500/50 p-4 rounded-2xl text-left transition-all duration-200">
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="font-bold text-xs text-slate-200 group-hover:text-brand-500 transition">Highest Earners</span>
-                            <i class="fa-solid fa-arrow-right text-[10px] text-slate-500 group-hover:text-brand-500 group-hover:translate-x-0.5 transition"></i>
-                        </div>
-                        <p class="text-[11px] text-slate-400">Who earns more than $90,000?</p>
-                    </button>
+                        <button onclick="sendSuggestion('Show headcount, billable allocation count, and average salary by practice and career level')" class="group bg-dark-card/80 hover:bg-dark-surface border border-dark-border hover:border-brand-500/50 p-4 rounded-xl text-left transition-all">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Practice & Career Levels</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[11px] text-slate-500 group-hover:text-brand-400 transition"></i>
+                            </div>
+                            <p class="font-bold text-xs md:text-sm text-slate-100 group-hover:text-white">CL6–CL12 Pyramid & Billable Staffing</p>
+                            <p class="text-[11px] text-slate-400 mt-1">Analyze career-level distribution, compensation bands, and billable allocations.</p>
+                        </button>
 
-                    <button onclick="sendSuggestion('Show all employees in Sales')" class="group bg-dark-card/60 hover:bg-dark-card border border-dark-border hover:border-brand-500/50 p-4 rounded-2xl text-left transition-all duration-200">
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="font-bold text-xs text-slate-200 group-hover:text-brand-500 transition">Sales Team</span>
-                            <i class="fa-solid fa-arrow-right text-[10px] text-slate-500 group-hover:text-brand-500 group-hover:translate-x-0.5 transition"></i>
-                        </div>
-                        <p class="text-[11px] text-slate-400">Show all employees in Sales</p>
-                    </button>
+                        <button onclick="sendSuggestion('Count active certifications by vendor and practice name')" class="group bg-dark-card/80 hover:bg-dark-surface border border-dark-border hover:border-brand-500/50 p-4 rounded-xl text-left transition-all">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">Cloud & AI Credentials</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[11px] text-slate-500 group-hover:text-brand-400 transition"></i>
+                            </div>
+                            <p class="font-bold text-xs md:text-sm text-slate-100 group-hover:text-white">Workforce Certification Matrix</p>
+                            <p class="text-[11px] text-slate-400 mt-1">Track AWS, Azure, GCP, SAP, and Databricks certifications across practices.</p>
+                        </button>
 
-                    <button onclick="sendSuggestion('List employees who joined after 2020')" class="group bg-dark-card/60 hover:bg-dark-card border border-dark-border hover:border-brand-500/50 p-4 rounded-2xl text-left transition-all duration-200">
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="font-bold text-xs text-slate-200 group-hover:text-brand-500 transition">Recent Hires</span>
-                            <i class="fa-solid fa-arrow-right text-[10px] text-slate-500 group-hover:text-brand-500 group-hover:translate-x-0.5 transition"></i>
-                        </div>
-                        <p class="text-[11px] text-slate-400">Joined after year 2020</p>
-                    </button>
-
-                    <button onclick="sendSuggestion('Where are the departments located?')" class="group bg-dark-card/60 hover:bg-dark-card border border-dark-border hover:border-brand-500/50 p-4 rounded-2xl text-left transition-all duration-200">
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="font-bold text-xs text-slate-200 group-hover:text-brand-500 transition">Office Locations</span>
-                            <i class="fa-solid fa-arrow-right text-[10px] text-slate-500 group-hover:text-brand-500 group-hover:translate-x-0.5 transition"></i>
-                        </div>
-                        <p class="text-[11px] text-slate-400">Where are departments located?</p>
-                    </button>
+                        <button onclick="sendSuggestion('Show P1 and P2 delivery incidents with project name, client name, assigned employee, status, and resolution hours')" class="group bg-dark-card/80 hover:bg-dark-surface border border-dark-border hover:border-brand-500/50 p-4 rounded-xl text-left transition-all">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded">Live Delivery Ops</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[11px] text-slate-500 group-hover:text-brand-400 transition"></i>
+                            </div>
+                            <p class="font-bold text-xs md:text-sm text-slate-100 group-hover:text-white">Critical Incidents & SLA Resolution</p>
+                            <p class="text-[11px] text-slate-400 mt-1">Inspect P1/P2 escalations across client engagements and assigned leads.</p>
+                        </button>
+                    </div>
                 </div>
             </div>
 
         </div>
 
-        <!-- BOTTOM INPUT BAR CONTAINER -->
-        <footer class="p-4 md:p-6 bg-dark-bg/80 backdrop-blur-md border-t border-dark-border/60">
-            <form id="chatForm" class="max-w-4xl mx-auto relative flex items-center">
-                <input type="text" id="userInput" placeholder="Ask anything in plain English... (e.g., Average salary in IT)" 
-                       class="w-full bg-dark-card/90 border border-dark-border rounded-2xl pl-5 pr-14 py-4 text-xs md:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition shadow-inner">
-                
-                <button type="submit" class="absolute right-2 bg-gradient-to-tr from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-700 text-white w-10 h-10 rounded-xl flex items-center justify-center transition shadow-md shadow-brand-500/30 active:scale-95">
-                    <i class="fa-solid fa-arrow-up text-xs"></i>
+        <!-- BOTTOM COMMAND INPUT -->
+        <footer class="px-4 md:px-8 py-4 glass-header border-t border-dark-border z-20">
+            <form id="chatForm" class="max-w-5xl mx-auto relative flex items-center">
+                <div class="absolute left-4 text-slate-400 pointer-events-none">
+                    <i class="fa-solid fa-terminal text-xs text-brand-400"></i>
+                </div>
+                <input type="text" id="userInput" autocomplete="off"
+                       placeholder="Ask a cross-table question (e.g., 'Show work_mode breakdown and average hours_logged on 2026-11-25 by location')..."
+                       class="w-full bg-dark-card border border-dark-border rounded-xl pl-10 pr-28 py-3.5 text-xs md:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition shadow-lg">
+
+                <button type="submit" class="absolute right-2 bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-700 text-white px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition shadow-md shadow-brand-500/25 active:scale-95">
+                    <span>Run Query</span>
+                    <i class="fa-solid fa-paper-plane text-[10px]"></i>
                 </button>
             </form>
-            <p class="text-center text-[10px] text-slate-500 mt-2 font-medium">
-                DataMind AI generates live SQL from natural language. Always double-check analytical queries.
-            </p>
         </footer>
-
     </main>
 
-    <!-- JAVASCRIPT ENGINE -->
+    <!-- SCHEMA EXPLORER DRAWER (10 ORGANIZATIONAL TABLES) -->
+    <div id="schemaDrawer" class="fixed inset-0 z-50 hidden">
+        <div onclick="toggleSchemaDrawer(false)" class="absolute inset-0 bg-black/60 backdrop-blur-xs"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-dark-sidebar border-l border-dark-border p-6 flex flex-col justify-between overflow-y-auto shadow-2xl">
+            <div class="space-y-4">
+                <div class="flex items-center justify-between border-b border-dark-border pb-4">
+                    <div>
+                        <h3 class="font-bold text-base text-white flex items-center gap-2">
+                            <i class="fa-solid fa-database text-brand-400"></i> company.db Schema
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-0.5">10 relational organizational tables</p>
+                    </div>
+                    <button onclick="toggleSchemaDrawer(false)" class="text-slate-400 hover:text-white p-2 rounded-lg bg-dark-card border border-dark-border">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Table 1: departments -->
+                <div class="bg-dark-card border border-dark-border rounded-xl overflow-hidden">
+                    <div class="px-4 py-2.5 bg-dark-surface/80 border-b border-dark-border flex items-center justify-between">
+                        <span class="font-mono font-bold text-xs text-emerald-400"><i class="fa-solid fa-building mr-1.5"></i>departments</span>
+                        <button onclick="toggleSchemaDrawer(false); sendSuggestion('Show all practices with location, annual_budget, and headcount')" class="text-[10px] bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500 hover:text-white px-2 py-0.5 rounded transition font-semibold">Query</button>
+                    </div>
+                    <div class="divide-y divide-dark-border/60 text-[11px] font-mono">
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">department_id</span><span class="text-amber-400">PK</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">department_name, location, region</span><span class="text-slate-400">TEXT</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">annual_budget, cost_center_code</span><span class="text-emerald-400">REAL / TEXT</span></div>
+                    </div>
+                </div>
+
+                <!-- Table 2: employees -->
+                <div class="bg-dark-card border border-dark-border rounded-xl overflow-hidden">
+                    <div class="px-4 py-2.5 bg-dark-surface/80 border-b border-dark-border flex items-center justify-between">
+                        <span class="font-mono font-bold text-xs text-brand-400"><i class="fa-solid fa-users mr-1.5"></i>employees</span>
+                        <button onclick="toggleSchemaDrawer(false); sendSuggestion('List employees with their career_level, designation, practice name, and manager name')" class="text-[10px] bg-brand-500/15 text-brand-400 hover:bg-brand-500 hover:text-white px-2 py-0.5 rounded transition font-semibold">Query</button>
+                    </div>
+                    <div class="divide-y divide-dark-border/60 text-[11px] font-mono">
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">employee_id</span><span class="text-amber-400">PK</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">employee_name, career_level, designation</span><span class="text-slate-400">TEXT</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">salary, joining_year</span><span class="text-emerald-400">REAL / INT</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">department_id, manager_id</span><span class="text-sky-400">FK</span></div>
+                    </div>
+                </div>
+
+                <!-- Table 3: clients -->
+                <div class="bg-dark-card border border-dark-border rounded-xl overflow-hidden">
+                    <div class="px-4 py-2.5 bg-dark-surface/80 border-b border-dark-border flex items-center justify-between">
+                        <span class="font-mono font-bold text-xs text-cyan-400"><i class="fa-solid fa-handshake mr-1.5"></i>clients</span>
+                        <button onclick="toggleSchemaDrawer(false); sendSuggestion('Show all clients with industry, hq_country, tier, annual_contract_value, and project count')" class="text-[10px] bg-cyan-500/15 text-cyan-400 hover:bg-cyan-500 hover:text-white px-2 py-0.5 rounded transition font-semibold">Query</button>
+                    </div>
+                    <div class="divide-y divide-dark-border/60 text-[11px] font-mono">
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">client_id</span><span class="text-amber-400">PK</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">client_name, industry, hq_country, tier</span><span class="text-slate-400">TEXT</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">annual_contract_value</span><span class="text-emerald-400">REAL</span></div>
+                    </div>
+                </div>
+
+                <!-- Table 4: projects -->
+                <div class="bg-dark-card border border-dark-border rounded-xl overflow-hidden">
+                    <div class="px-4 py-2.5 bg-dark-surface/80 border-b border-dark-border flex items-center justify-between">
+                        <span class="font-mono font-bold text-xs text-sky-400"><i class="fa-solid fa-folder-open mr-1.5"></i>projects</span>
+                        <button onclick="toggleSchemaDrawer(false); sendSuggestion('Show all engagements with client_name, practice name, billing_model, budget, and status')" class="text-[10px] bg-sky-500/15 text-sky-400 hover:bg-sky-500 hover:text-white px-2 py-0.5 rounded transition font-semibold">Query</button>
+                    </div>
+                    <div class="divide-y divide-dark-border/60 text-[11px] font-mono">
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">project_id / client_id / department_id</span><span class="text-amber-400">PK / FK</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">project_name, billing_model, status</span><span class="text-slate-400">TEXT</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">budget, deadline_quarter</span><span class="text-emerald-400">REAL / TEXT</span></div>
+                    </div>
+                </div>
+
+                <!-- Table 5: employee_projects -->
+                <div class="bg-dark-card border border-dark-border rounded-xl overflow-hidden">
+                    <div class="px-4 py-2.5 bg-dark-surface/80 border-b border-dark-border flex items-center justify-between">
+                        <span class="font-mono font-bold text-xs text-amber-400"><i class="fa-solid fa-link mr-1.5"></i>employee_projects</span>
+                        <button onclick="toggleSchemaDrawer(false); sendSuggestion('Show project staffing with employee name, project name, role_on_project, allocation_percent, and is_billable')" class="text-[10px] bg-amber-500/15 text-amber-400 hover:bg-amber-500 hover:text-white px-2 py-0.5 rounded transition font-semibold">Query</button>
+                    </div>
+                    <div class="divide-y divide-dark-border/60 text-[11px] font-mono">
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">employee_id, project_id</span><span class="text-sky-400">FK Junction</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">role_on_project, allocation_percent</span><span class="text-slate-400">TEXT / INT</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">is_billable, assigned_date</span><span class="text-emerald-400">INT / TEXT</span></div>
+                    </div>
+                </div>
+
+                <!-- Table 6: performance_reviews -->
+                <div class="bg-dark-card border border-dark-border rounded-xl overflow-hidden">
+                    <div class="px-4 py-2.5 bg-dark-surface/80 border-b border-dark-border flex items-center justify-between">
+                        <span class="font-mono font-bold text-xs text-purple-400"><i class="fa-solid fa-star-half-stroke mr-1.5"></i>performance_reviews</span>
+                        <button onclick="toggleSchemaDrawer(false); sendSuggestion('Top 25 highest rated employees in 2026 with practice name, career_level, rating, and bonus_awarded')" class="text-[10px] bg-purple-500/15 text-purple-400 hover:bg-purple-500 hover:text-white px-2 py-0.5 rounded transition font-semibold">Query</button>
+                    </div>
+                    <div class="divide-y divide-dark-border/60 text-[11px] font-mono">
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">review_id / employee_id</span><span class="text-amber-400">PK / FK</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">review_year, rating, bonus_awarded</span><span class="text-emerald-400">NUM</span></div>
+                    </div>
+                </div>
+
+                <!-- Table 7: salary_history -->
+                <div class="bg-dark-card border border-dark-border rounded-xl overflow-hidden">
+                    <div class="px-4 py-2.5 bg-dark-surface/80 border-b border-dark-border flex items-center justify-between">
+                        <span class="font-mono font-bold text-xs text-rose-400"><i class="fa-solid fa-chart-line mr-1.5"></i>salary_history</span>
+                        <button onclick="toggleSchemaDrawer(false); sendSuggestion('Show employees with biggest 2026 salary revision including previous_salary, new_salary, and change_reason')" class="text-[10px] bg-rose-500/15 text-rose-400 hover:bg-rose-500 hover:text-white px-2 py-0.5 rounded transition font-semibold">Query</button>
+                    </div>
+                    <div class="divide-y divide-dark-border/60 text-[11px] font-mono">
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">history_id / employee_id</span><span class="text-amber-400">PK / FK</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">previous_salary, new_salary, change_reason</span><span class="text-emerald-400">REAL / TEXT</span></div>
+                    </div>
+                </div>
+
+                <!-- Table 8: employee_certifications -->
+                <div class="bg-dark-card border border-dark-border rounded-xl overflow-hidden">
+                    <div class="px-4 py-2.5 bg-dark-surface/80 border-b border-dark-border flex items-center justify-between">
+                        <span class="font-mono font-bold text-xs text-indigo-400"><i class="fa-solid fa-certificate mr-1.5"></i>employee_certifications</span>
+                        <button onclick="toggleSchemaDrawer(false); sendSuggestion('Count certifications by vendor and status with practice name')" class="text-[10px] bg-indigo-500/15 text-indigo-400 hover:bg-indigo-500 hover:text-white px-2 py-0.5 rounded transition font-semibold">Query</button>
+                    </div>
+                    <div class="divide-y divide-dark-border/60 text-[11px] font-mono">
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">cert_id / employee_id</span><span class="text-amber-400">PK / FK</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">certification_name, vendor, status</span><span class="text-slate-400">TEXT</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">issued_year</span><span class="text-slate-400">INT</span></div>
+                    </div>
+                </div>
+
+                <!-- Table 9: delivery_incidents -->
+                <div class="bg-dark-card border border-dark-border rounded-xl overflow-hidden">
+                    <div class="px-4 py-2.5 bg-dark-surface/80 border-b border-dark-border flex items-center justify-between">
+                        <span class="font-mono font-bold text-xs text-orange-400"><i class="fa-solid fa-bug mr-1.5"></i>delivery_incidents</span>
+                        <button onclick="toggleSchemaDrawer(false); sendSuggestion('Show P1 and P2 delivery incidents with project name, client name, assigned employee, status, and resolution_hours')" class="text-[10px] bg-orange-500/15 text-orange-400 hover:bg-orange-500 hover:text-white px-2 py-0.5 rounded transition font-semibold">Query</button>
+                    </div>
+                    <div class="divide-y divide-dark-border/60 text-[11px] font-mono">
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">incident_id / project_id / assigned_employee_id</span><span class="text-amber-400">PK / FK</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">severity, category, status</span><span class="text-slate-400">TEXT</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">resolution_hours, reported_date</span><span class="text-emerald-400">REAL / TEXT</span></div>
+                    </div>
+                </div>
+
+                <!-- Table 10: attendance_logs -->
+                <div class="bg-dark-card border border-dark-border rounded-xl overflow-hidden">
+                    <div class="px-4 py-2.5 bg-dark-surface/80 border-b border-dark-border flex items-center justify-between">
+                        <span class="font-mono font-bold text-xs text-teal-400"><i class="fa-solid fa-clock mr-1.5"></i>attendance_logs</span>
+                        <button onclick="toggleSchemaDrawer(false); sendSuggestion('Show work_mode breakdown and average hours_logged on 2026-11-25 by practice and location')" class="text-[10px] bg-teal-500/15 text-teal-400 hover:bg-teal-500 hover:text-white px-2 py-0.5 rounded transition font-semibold">Query</button>
+                    </div>
+                    <div class="divide-y divide-dark-border/60 text-[11px] font-mono">
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">log_id / employee_id</span><span class="text-amber-400">PK / FK</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">work_date, work_mode, attendance_status</span><span class="text-slate-400">TEXT</span></div>
+                        <div class="px-4 py-1.5 flex justify-between"><span class="text-slate-200">hours_logged</span><span class="text-emerald-400">REAL</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-dark-border text-[11px] text-slate-400 mt-4">
+                <i class="fa-solid fa-circle-info text-brand-400 mr-1"></i>
+                Linked across practices, staff, clients, engagements, staffing, reviews, compensation, certifications, incidents & attendance.
+            </div>
+        </div>
+    </div>
+
+    <!-- FULLSCREEN DATA MODAL FOR LARGE DATASETS -->
+    <div id="fullscreenModal" class="fixed inset-0 z-50 bg-dark-bg/95 backdrop-blur-md hidden flex flex-col p-4 md:p-8">
+        <div class="flex items-center justify-between pb-4 border-b border-dark-border">
+            <div>
+                <h3 id="modalTitle" class="font-bold text-base text-white">Expanded Dataset Inspector</h3>
+                <p id="modalSubtitle" class="text-xs text-slate-400 font-mono mt-0.5"></p>
+            </div>
+            <button onclick="closeFullscreenModal()" class="bg-dark-card hover:bg-dark-surface text-slate-200 border border-dark-border px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition">
+                <i class="fa-solid fa-compress"></i> Exit Fullscreen
+            </button>
+        </div>
+        <div id="modalBody" class="flex-1 overflow-auto mt-4"></div>
+    </div>
+
+    <!-- APPLICATION ENGINE -->
     <script>
         const chatContainer = document.getElementById('chatContainer');
         const chatForm = document.getElementById('chatForm');
         const userInput = document.getElementById('userInput');
         const welcomeScreen = document.getElementById('welcomeScreen');
 
+        const resultStore = {};
+        let queryHistory = JSON.parse(localStorage.getItem('datamind_history') || '[]');
+
+        renderHistory();
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('mobileBackdrop');
+            sidebar.classList.toggle('-translate-x-full');
+            backdrop.classList.toggle('hidden');
+        }
+
+        function toggleSchemaDrawer(show) {
+            const drawer = document.getElementById('schemaDrawer');
+            drawer.classList.toggle('hidden', !show);
+        }
+
         function clearChat() {
             chatContainer.innerHTML = '';
             chatContainer.appendChild(welcomeScreen);
             welcomeScreen.classList.remove('hidden');
+        }
+
+        function saveToHistory(query) {
+            queryHistory = [query, ...queryHistory.filter(q => q !== query)].slice(0, 12);
+            localStorage.setItem('datamind_history', JSON.stringify(queryHistory));
+            renderHistory();
+        }
+
+        function clearHistory() {
+            queryHistory = [];
+            localStorage.removeItem('datamind_history');
+            renderHistory();
+        }
+
+        function renderHistory() {
+            const list = document.getElementById('historyList');
+            if (!queryHistory.length) {
+                list.innerHTML = `<p class="text-[11px] text-slate-500 px-2 py-2 italic">No recent queries yet.</p>`;
+                return;
+            }
+            list.innerHTML = queryHistory.map(q => `
+                <button onclick="sendSuggestion('${escapeAttr(q)}')" title="${escapeAttr(q)}"
+                        class="w-full text-left px-2.5 py-2 rounded-lg text-xs text-slate-400 hover:text-white hover:bg-dark-surface truncate transition flex items-center gap-2">
+                    <i class="fa-regular fa-message text-[10px] text-slate-500 shrink-0"></i>
+                    <span class="truncate">${escapeHtml(q)}</span>
+                </button>
+            `).join('');
         }
 
         function sendSuggestion(text) {
@@ -255,34 +527,34 @@
             const message = userInput.value.trim();
             if (!message) return;
 
-            // Hide Welcome Card on first message
             if (welcomeScreen) welcomeScreen.classList.add('hidden');
 
-            // 1. Render User Bubble
+            saveToHistory(message);
             appendUserMessage(message);
             userInput.value = '';
 
-            // 2. Render Loading Indicator
             const loadingId = appendLoadingIndicator();
+            const startTime = performance.now();
 
             try {
                 const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: message })
+                    body: JSON.stringify({ message })
                 });
 
                 const data = await response.json();
+                const elapsedMs = Math.round(performance.now() - startTime);
                 removeLoadingIndicator(loadingId);
 
                 if (data.error) {
-                    appendErrorMessage(data.error);
+                    appendErrorMessage(data.error, data.sql);
                 } else {
-                    appendBotTableResponse(data);
+                    appendBotDataCard(data, elapsedMs, message);
                 }
             } catch (err) {
                 removeLoadingIndicator(loadingId);
-                appendErrorMessage("Failed to connect to Flask backend.");
+                appendErrorMessage("Unable to reach Flask backend server.");
             }
         }
 
@@ -291,42 +563,31 @@
             handleSend();
         });
 
-        // USER MESSAGE BUBBLE
         function appendUserMessage(text) {
             const wrapper = document.createElement('div');
-            wrapper.className = 'flex justify-end';
-
+            wrapper.className = 'max-w-5xl mx-auto flex justify-end';
             wrapper.innerHTML = `
-                <div class="bg-gradient-to-r from-brand-700 to-brand-600 text-white font-medium px-5 py-3.5 rounded-2xl rounded-tr-sm max-w-lg text-xs md:text-sm shadow-md">
+                <div class="bg-gradient-to-r from-brand-700 to-brand-600 text-white font-medium px-5 py-3 rounded-2xl rounded-tr-sm max-w-2xl text-xs md:text-sm shadow-md">
                     ${escapeHtml(text)}
                 </div>
             `;
-
             chatContainer.appendChild(wrapper);
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
-        // LOADING BOUNCING ANIMATION
         function appendLoadingIndicator() {
             const id = 'loading-' + Date.now();
             const wrapper = document.createElement('div');
             wrapper.id = id;
-            wrapper.className = 'flex justify-start';
-
+            wrapper.className = 'max-w-5xl mx-auto flex justify-start';
             wrapper.innerHTML = `
-                <div class="bg-dark-card border border-dark-border text-slate-300 p-4 rounded-2xl rounded-tl-sm text-xs flex items-center gap-3">
-                    <div class="w-6 h-6 rounded-lg bg-brand-500/20 text-brand-500 flex items-center justify-center">
-                        <i class="fa-solid fa-wand-magic-sparkles text-xs animate-pulse"></i>
+                <div class="bg-dark-card border border-dark-border text-slate-300 px-4 py-3.5 rounded-2xl rounded-tl-sm text-xs flex items-center gap-3 shadow-lg">
+                    <div class="w-6 h-6 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center">
+                        <i class="fa-solid fa-microchip animate-pulse"></i>
                     </div>
-                    <span class="font-medium text-slate-400">Translating query to SQL...</span>
-                    <div class="flex gap-1">
-                        <span class="w-1.5 h-1.5 bg-brand-500 rounded-full animate-bounce" style="animation-delay: 0s"></span>
-                        <span class="w-1.5 h-1.5 bg-brand-500 rounded-full animate-bounce" style="animation-delay: 0.15s"></span>
-                        <span class="w-1.5 h-1.5 bg-brand-500 rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
-                    </div>
+                    <span class="font-medium text-slate-300">Compiling SQL & querying company.db...</span>
                 </div>
             `;
-
             chatContainer.appendChild(wrapper);
             chatContainer.scrollTop = chatContainer.scrollHeight;
             return id;
@@ -337,81 +598,315 @@
             if (el) el.remove();
         }
 
-        // BOT TABLE & SQL RESPONSE
-        function appendBotTableResponse(data) {
-            let tableHTML = '';
-            
-            if (data.rows && data.rows.length > 0) {
-                let headersTH = data.headers.map(h => `<th class="px-4 py-3 text-left font-bold text-brand-500 text-[11px] tracking-wider uppercase border-b border-dark-border bg-dark-sidebar/80">${h}</th>`).join('');
-                let rowsTR = data.rows.map(row => {
-                    let cells = row.map(c => `<td class="px-4 py-3 text-xs border-b border-dark-border/40 text-slate-300 font-medium">${c}</td>`).join('');
-                    return `<tr class="hover:bg-dark-hover/60 transition-colors">${cells}</tr>`;
-                }).join('');
+        function appendBotDataCard(data, elapsedMs, originalPrompt) {
+            const cardId = 'res_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
 
-                tableHTML = `
-                    <div class="overflow-x-auto border border-dark-border rounded-xl bg-dark-bg/90 mt-3 shadow-inner">
-                        <table class="w-full text-left border-collapse">
-                            <thead><tr>${headersTH}</tr></thead>
-                            <tbody>${rowsTR}</tbody>
-                        </table>
-                    </div>
-                `;
-            } else {
-                tableHTML = `<div class="p-4 bg-dark-bg/60 border border-dark-border rounded-xl text-xs text-slate-400 italic">No matching database records found.</div>`;
-            }
+            resultStore[cardId] = {
+                prompt: originalPrompt,
+                sql: data.sql,
+                headers: data.headers || [],
+                rawRows: data.rows || [],
+                filteredRows: [...(data.rows || [])],
+                page: 1,
+                pageSize: 15,
+                searchTerm: '',
+                sortCol: -1,
+                sortAsc: true
+            };
 
             const wrapper = document.createElement('div');
-            wrapper.className = 'flex justify-start';
-
+            wrapper.className = 'max-w-5xl mx-auto flex justify-start';
             wrapper.innerHTML = `
-                <div class="bg-dark-card border border-dark-border text-slate-200 p-5 rounded-2xl rounded-tl-sm max-w-3xl w-full space-y-3.5 shadow-xl">
-                    <!-- Bot Header -->
-                    <div class="flex items-center justify-between pb-2 border-b border-dark-border/60">
-                        <div class="flex items-center gap-2 text-brand-500 font-bold text-xs">
-                            <i class="fa-solid fa-sparkles"></i> DataMind AI Response
+                <div id="${cardId}" class="bg-dark-card border border-dark-border text-slate-200 p-5 rounded-2xl rounded-tl-sm w-full space-y-4 shadow-xl">
+                    <!-- Top Status Bar -->
+                    <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-dark-border">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-7 h-7 rounded-lg bg-brand-500/15 border border-brand-500/30 text-brand-400 flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-table-columns"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold text-xs text-white block">Query Result Set</span>
+                                <span class="text-[10px] text-slate-400">Executed in ${elapsedMs}ms</span>
+                            </div>
                         </div>
-                        <span class="text-[10px] text-slate-400 bg-dark-bg px-2 py-0.5 rounded-md border border-dark-border">${data.row_count} rows returned</span>
-                    </div>
 
-                    <!-- Code Box (Dark Terminal Style) -->
-                    <div class="bg-dark-bg/90 p-3.5 rounded-xl border border-dark-border/80 font-mono text-xs text-slate-300">
-                        <div class="flex justify-between items-center text-[10px] text-slate-400 mb-1.5 font-sans">
-                            <span class="font-bold text-brand-500 flex items-center gap-1.5">
-                                <i class="fa-solid fa-code"></i> GENERATED SQL QUERY
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md">
+                                ${data.row_count.toLocaleString()} row${data.row_count === 1 ? '' : 's'}
                             </span>
+                            <button onclick="exportCSV('${cardId}')" class="text-[11px] font-semibold text-slate-300 hover:text-white bg-dark-surface hover:bg-dark-hover border border-dark-border px-2.5 py-1 rounded-md transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-csv text-emerald-400"></i> Export CSV
+                            </button>
+                            <button onclick="openFullscreenModal('${cardId}')" class="text-[11px] font-semibold text-slate-300 hover:text-white bg-dark-surface hover:bg-dark-hover border border-dark-border px-2.5 py-1 rounded-md transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-expand text-brand-400"></i> Expand
+                            </button>
                         </div>
-                        <code class="text-indigo-300 leading-relaxed">${escapeHtml(data.sql)}</code>
                     </div>
 
-                    <!-- Data Table -->
-                    ${tableHTML}
+                    <!-- Generated SQL Block -->
+                    <div class="bg-dark-bg border border-dark-border rounded-xl overflow-hidden">
+                        <div class="px-3.5 py-2 bg-dark-surface/60 border-b border-dark-border/80 flex items-center justify-between">
+                            <span class="text-[10px] font-bold tracking-wider uppercase text-brand-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-code"></i> Generated SQLite Query
+                            </span>
+                            <button onclick="copySQL('${cardId}', this)" class="text-[10px] text-slate-400 hover:text-white flex items-center gap-1 transition">
+                                <i class="fa-regular fa-copy"></i> Copy SQL
+                            </button>
+                        </div>
+                        <pre class="p-3.5 font-mono text-xs text-indigo-300 overflow-x-auto leading-relaxed"><code>${escapeHtml(data.sql)}</code></pre>
+                    </div>
+
+                    <!-- Interactive Grid Controls -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div class="relative flex-1 max-w-xs">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                            <input type="text" oninput="filterTable('${cardId}', this.value)" placeholder="Filter within results..."
+                                   class="w-full bg-dark-bg border border-dark-border rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500">
+                        </div>
+
+                        <div class="flex items-center gap-2 text-xs text-slate-400">
+                            <span>Rows per page:</span>
+                            <select onchange="changePageSize('${cardId}', this.value)" class="bg-dark-bg border border-dark-border rounded-lg px-2 py-1 text-xs text-slate-200 focus:outline-none focus:border-brand-500">
+                                <option value="10">10</option>
+                                <option value="15" selected>15</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Table Container -->
+                    <div id="${cardId}_table_wrap"></div>
                 </div>
             `;
 
             chatContainer.appendChild(wrapper);
+            renderDataTable(cardId);
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
-        // ERROR MESSAGE DISPLAY
-        function appendErrorMessage(errText) {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'flex justify-start';
+        function renderDataTable(cardId, targetContainerId = null) {
+            const state = resultStore[cardId];
+            if (!state) return;
 
-            wrapper.innerHTML = `
-                <div class="bg-red-500/10 border border-red-500/30 text-red-300 p-4 rounded-2xl text-xs max-w-lg space-y-1">
-                    <div class="font-bold flex items-center gap-2 text-red-400">
-                        <i class="fa-solid fa-circle-exclamation"></i> Error Processing Query
+            const container = document.getElementById(targetContainerId || `${cardId}_table_wrap`);
+            if (!container) return;
+
+            if (!state.filteredRows.length) {
+                container.innerHTML = `
+                    <div class="p-6 bg-dark-bg/70 border border-dark-border rounded-xl text-center text-xs text-slate-400">
+                        No matching records found.
                     </div>
-                    <p class="text-red-300/80">${escapeHtml(errText)}</p>
+                `;
+                return;
+            }
+
+            const totalRows = state.filteredRows.length;
+            const totalPages = Math.max(1, Math.ceil(totalRows / state.pageSize));
+            if (state.page > totalPages) state.page = totalPages;
+
+            const startIdx = (state.page - 1) * state.pageSize;
+            const endIdx = Math.min(startIdx + state.pageSize, totalRows);
+            const pageRows = state.filteredRows.slice(startIdx, endIdx);
+
+            const headersHTML = state.headers.map((h, idx) => {
+                const isSorted = state.sortCol === idx;
+                const sortIcon = isSorted
+                    ? (state.sortAsc ? 'fa-sort-up text-brand-400' : 'fa-sort-down text-brand-400')
+                    : 'fa-sort text-slate-600 group-hover:text-slate-400';
+
+                return `
+                    <th onclick="sortTable('${cardId}', ${idx}, '${targetContainerId || ''}')"
+                        class="group cursor-pointer select-none px-4 py-3 text-left font-bold text-slate-300 text-[11px] tracking-wider uppercase border-b border-dark-border bg-dark-sidebar sticky top-0 z-10 whitespace-nowrap hover:bg-dark-surface transition">
+                        <div class="flex items-center gap-2">
+                            <span>${escapeHtml(h)}</span>
+                            <i class="fa-solid ${sortIcon} text-[10px]"></i>
+                        </div>
+                    </th>
+                `;
+            }).join('');
+
+            const rowsHTML = pageRows.map((row, rIdx) => {
+                const cells = row.map((val, cIdx) => {
+                    const colName = (state.headers[cIdx] || '').toLowerCase();
+                    const isNum = typeof val === 'number';
+                    let formatted = val === null ? '<span class="text-slate-600 italic">NULL</span>' : escapeHtml(String(val));
+
+                    if (isNum && (colName.includes('salary') || colName.includes('payroll') || colName.includes('budget') || colName.includes('bonus') || colName.includes('raise') || colName.includes('avg') || colName.includes('contract_value'))) {
+                        formatted = val.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+                    } else if (isNum && !colName.includes('id') && !colName.includes('year')) {
+                        formatted = val.toLocaleString();
+                    }
+
+                    const alignClass = isNum && !colName.includes('id') && !colName.includes('year')
+                        ? 'font-mono text-emerald-300/95'
+                        : 'text-slate-300';
+
+                    return `<td class="px-4 py-2.5 text-xs border-b border-dark-border/50 whitespace-nowrap ${alignClass}">${formatted}</td>`;
+                }).join('');
+
+                return `<tr class="${rIdx % 2 === 1 ? 'bg-dark-bg/30' : ''} hover:bg-dark-hover/70 transition-colors">${cells}</tr>`;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="overflow-x-auto max-h-[420px] border border-dark-border rounded-xl bg-dark-bg/90 shadow-inner">
+                    <table class="w-full text-left border-collapse">
+                        <thead><tr>${headersHTML}</tr></thead>
+                        <tbody>${rowsHTML}</tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination Footer -->
+                <div class="flex flex-wrap items-center justify-between gap-2 pt-3 text-xs text-slate-400">
+                    <span>Showing <strong class="text-slate-200">${startIdx + 1}–${endIdx}</strong> of <strong class="text-slate-200">${totalRows.toLocaleString()}</strong> records</span>
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="goToPage('${cardId}', ${state.page - 1}, '${targetContainerId || ''}')" ${state.page <= 1 ? 'disabled' : ''}
+                                class="px-2.5 py-1 rounded-lg bg-dark-surface border border-dark-border text-slate-300 hover:text-white disabled:opacity-40 disabled:pointer-events-none transition">
+                            <i class="fa-solid fa-chevron-left text-[10px]"></i> Prev
+                        </button>
+                        <span class="px-2 font-mono text-[11px] text-slate-300">Page ${state.page} / ${totalPages}</span>
+                        <button onclick="goToPage('${cardId}', ${state.page + 1}, '${targetContainerId || ''}')" ${state.page >= totalPages ? 'disabled' : ''}
+                                class="px-2.5 py-1 rounded-lg bg-dark-surface border border-dark-border text-slate-300 hover:text-white disabled:opacity-40 disabled:pointer-events-none transition">
+                            Next <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                    </div>
                 </div>
             `;
+        }
 
+        function filterTable(cardId, query) {
+            const state = resultStore[cardId];
+            if (!state) return;
+            const q = query.toLowerCase().trim();
+            state.searchTerm = q;
+            state.page = 1;
+
+            if (!q) {
+                state.filteredRows = [...state.rawRows];
+            } else {
+                state.filteredRows = state.rawRows.filter(row =>
+                    row.some(cell => cell !== null && String(cell).toLowerCase().includes(q))
+                );
+            }
+            renderDataTable(cardId);
+        }
+
+        function sortTable(cardId, colIdx, targetContainerId = '') {
+            const state = resultStore[cardId];
+            if (!state) return;
+
+            if (state.sortCol === colIdx) {
+                state.sortAsc = !state.sortAsc;
+            } else {
+                state.sortCol = colIdx;
+                state.sortAsc = true;
+            }
+
+            state.filteredRows.sort((a, b) => {
+                const valA = a[colIdx];
+                const valB = b[colIdx];
+                if (valA === valB) return 0;
+                if (valA === null) return 1;
+                if (valB === null) return -1;
+                if (typeof valA === 'number' && typeof valB === 'number') {
+                    return state.sortAsc ? valA - valB : valB - valA;
+                }
+                return state.sortAsc
+                    ? String(valA).localeCompare(String(valB))
+                    : String(valB).localeCompare(String(valA));
+            });
+
+            renderDataTable(cardId, targetContainerId || null);
+        }
+
+        function changePageSize(cardId, newSize) {
+            const state = resultStore[cardId];
+            if (!state) return;
+            state.pageSize = parseInt(newSize, 10) || 15;
+            state.page = 1;
+            renderDataTable(cardId);
+        }
+
+        function goToPage(cardId, newPage, targetContainerId = '') {
+            const state = resultStore[cardId];
+            if (!state) return;
+            state.page = newPage;
+            renderDataTable(cardId, targetContainerId || null);
+        }
+
+        function exportCSV(cardId) {
+            const state = resultStore[cardId];
+            if (!state) return;
+
+            const escapeCSV = (val) => {
+                if (val === null || val === undefined) return '';
+                const str = String(val);
+                return /[",\n]/.test(str) ? `"${str.replace(/"/g, '""')}"` : str;
+            };
+
+            const csvLines = [
+                state.headers.map(escapeCSV).join(','),
+                ...state.filteredRows.map(row => row.map(escapeCSV).join(','))
+            ];
+
+            const blob = new Blob([csvLines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `datamind_export_${Date.now()}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function copySQL(cardId, btn) {
+            const state = resultStore[cardId];
+            if (!state) return;
+            navigator.clipboard.writeText(state.sql);
+            const orig = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-check text-emerald-400"></i> Copied`;
+            setTimeout(() => { btn.innerHTML = orig; }, 1500);
+        }
+
+        function openFullscreenModal(cardId) {
+            const state = resultStore[cardId];
+            if (!state) return;
+            document.getElementById('modalTitle').textContent = state.prompt;
+            document.getElementById('modalSubtitle').textContent = state.sql;
+            document.getElementById('fullscreenModal').classList.remove('hidden');
+            renderDataTable(cardId, 'modalBody');
+        }
+
+        function closeFullscreenModal() {
+            document.getElementById('fullscreenModal').classList.add('hidden');
+        }
+
+        function appendErrorMessage(errText, failedSql = null) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'max-w-5xl mx-auto flex justify-start';
+            wrapper.innerHTML = `
+                <div class="bg-red-500/10 border border-red-500/30 text-red-200 p-4 rounded-2xl text-xs max-w-2xl space-y-2">
+                    <div class="font-bold flex items-center gap-2 text-red-400">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Query Execution Failed
+                    </div>
+                    <p class="text-red-300/90">${escapeHtml(errText)}</p>
+                    ${failedSql ? `<pre class="p-2.5 bg-dark-bg/80 rounded-lg font-mono text-[11px] text-slate-300 overflow-x-auto">${escapeHtml(failedSql)}</pre>` : ''}
+                </div>
+            `;
             chatContainer.appendChild(wrapper);
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
         function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;");
+        }
+
+        function escapeAttr(text) {
+            return String(text).replace(/'/g, "\\'").replace(/"/g, '&quot;');
         }
     </script>
 </body>
