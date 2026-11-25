@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataMind AI - Enterprise Database Intelligence</title>
+
+    <!-- Modern Typography: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Pro Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            500: '#7568F5',
+                            600: '#6352f2',
+                            700: '#4f3ddb',
+                        },
+                        dark: {
+                            bg: '#090D16',
+                            sidebar: '#0E1424',
+                            card: '#141C30',
+                            border: '#1F2B48',
+                            hover: '#1B2642'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Ultra-thin Modern Scrollbar */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #1F2B48; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7568F5; }
+
+        /* Smooth Glassmorphism */
+        .glass-panel {
+            background: rgba(20, 28, 48, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(31, 43, 72, 0.8);
+        }
+
+        /* Pulse glow effect for AI */
+        .ai-glow {
+            box-shadow: 0 0 25px -5px rgba(117, 104, 245, 0.35);
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-slate-100 flex h-screen font-sans antialiased overflow-hidden select-none">
+
+    <!-- SIDEBAR -->
+    <aside class="w-72 bg-dark-sidebar p-5 flex flex-col border-r border-dark-border/80 hidden md:flex justify-between">
+        <div>
+            <!-- Branding -->
+            <div class="flex items-center gap-3.5 mb-7">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-700 via-brand-500 to-indigo-400 flex items-center justify-center text-white ai-glow">
+                    <i class="fa-solid fa-cube text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base tracking-tight text-white flex items-center gap-2">
+                        DataMind AI
+                        <span class="text-[9px] bg-brand-500/20 text-brand-500 border border-brand-500/30 px-1.5 py-0.5 rounded-full font-semibold">PRO</span>
+                    </h1>
+                    <span class="text-[10px] text-slate-400 font-medium tracking-wider">DATABASE INTELLIGENCE</span>
+                </div>
+            </div>
+
+            <!-- New Chat Button -->
+            <button onclick="clearChat()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-700 text-white font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 mb-6 transition-all duration-200 shadow-lg shadow-brand-500/20 active:scale-[0.98]">
+                <i class="fa-solid fa-plus text-xs"></i> New Conversation
+            </button>
+
+            <!-- Navigation Sections -->
+            <div class="space-y-6">
+                <div>
+                    <span class="text-[10px] font-bold text-slate-400 tracking-wider uppercase px-2 mb-2 block">Workspace</span>
+                    <nav class="space-y-1">
+                        <a href="#" class="flex items-center justify-between py-2.5 px-3 rounded-xl text-slate-300 hover:bg-dark-card hover:text-white transition text-xs font-medium">
+                            <span class="flex items-center gap-3">
+                                <i class="fa-solid fa-database text-brand-500"></i> Database Explorer
+                            </span>
+                            <span class="text-[10px] bg-dark-bg text-slate-400 px-2 py-0.5 rounded-md border border-dark-border">v1.0</span>
+                        </a>
+                        <a href="#" class="flex items-center justify-between py-2.5 px-3 rounded-xl text-slate-300 hover:bg-dark-card hover:text-white transition text-xs font-medium">
+                            <span class="flex items-center gap-3">
+                                <i class="fa-solid fa-clock-rotate-left text-slate-400"></i> Query History
+                            </span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Footer -->
+        <div class="space-y-3 pt-4 border-t border-dark-border/60">
+            <!-- Connection Pill -->
+            <div class="bg-dark-card border border-dark-border p-3 rounded-xl flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2.5">
+                    <span class="relative flex h-2.5 w-2.5">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-slate-300 font-semibold text-[11px]">company.db</span>
+                </div>
+                <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-medium border border-emerald-500/20">Active</span>
+            </div>
+
+            <!-- Profile Info -->
+            <div class="flex items-center gap-3 p-1">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-500 to-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-md">
+                    A
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-xs font-bold text-white truncate">Admin User</p>
+                    <p class="text-[10px] text-slate-400 truncate">admin@datamind.ai</p>
+                </div>
+                <i class="fa-solid fa-ellipsis-vertical text-slate-400 text-xs hover:text-white cursor-pointer px-1"></i>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CHAT PANEL -->
+    <main class="flex-1 flex flex-col h-full bg-dark-bg relative">
+
+        <!-- Top Header Bar -->
+        <header class="px-8 py-4 border-b border-dark-border/80 flex justify-between items-center glass-panel z-10">
+            <div class="flex items-center gap-3">
+                <div class="md:hidden w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center text-white">
+                    <i class="fa-solid fa-cube"></i>
+                </div>
+                <div>
+                    <h2 class="font-bold text-sm text-white tracking-tight flex items-center gap-2">
+                        Natural Language SQL Engine
+                    </h2>
+                    <p class="text-[11px] text-slate-400">Powered by Gemini 2.5 Flash & SQLite</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <button onclick="clearChat()" title="Reset Session" class="text-slate-400 hover:text-white hover:bg-dark-card p-2 rounded-lg transition text-xs border border-transparent hover:border-dark-border">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Chat Scroll Area -->
+        <div id="chatContainer" class="flex-1 overflow-y-auto p-6 md:p-10 space-y-6">
+
+            <!-- WELCOME DASHBOARD SCREEN -->
+            <div id="welcomeScreen" class="h-full flex flex-col items-center justify-center text-center max-w-2xl mx-auto py-10">
+                <div class="relative mb-6">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white text-2xl ai-glow">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight mb-2">
+                    Ask anything about your data
+                </h2>
+                <p class="text-xs md:text-sm text-slate-400 max-w-md mb-8 leading-relaxed">
+                    DataMind AI translates complex questions into instant SQL queries and visual tables.
+                </p>
+
+                <!-- Prompt Suggestion Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full">
+                    <button onclick="sendSuggestion('Who earns more than 90000?')" class="group bg-dark-card/60 hover:bg-dark-card border border-dark-border hover:border-brand-500/50 p-4 rounded-2xl text-left transition-all duration-200">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="font-bold text-xs text-slate-200 group-hover:text-brand-500 transition">Highest Earners</span>
+                            <i class="fa-solid fa-arrow-right text-[10px] text-slate-500 group-hover:text-brand-500 group-hover:translate-x-0.5 transition"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400">Who earns more than $90,000?</p>
+                    </button>
+
+                    <button onclick="sendSuggestion('Show all employees in Sales')" class="group bg-dark-card/60 hover:bg-dark-card border border-dark-border hover:border-brand-500/50 p-4 rounded-2xl text-left transition-all duration-200">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="font-bold text-xs text-slate-200 group-hover:text-brand-500 transition">Sales Team</span>
+                            <i class="fa-solid fa-arrow-right text-[10px] text-slate-500 group-hover:text-brand-500 group-hover:translate-x-0.5 transition"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400">Show all employees in Sales</p>
+                    </button>
+
+                    <button onclick="sendSuggestion('List employees who joined after 2020')" class="group bg-dark-card/60 hover:bg-dark-card border border-dark-border hover:border-brand-500/50 p-4 rounded-2xl text-left transition-all duration-200">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="font-bold text-xs text-slate-200 group-hover:text-brand-500 transition">Recent Hires</span>
+                            <i class="fa-solid fa-arrow-right text-[10px] text-slate-500 group-hover:text-brand-500 group-hover:translate-x-0.5 transition"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400">Joined after year 2020</p>
+                    </button>
+
+                    <button onclick="sendSuggestion('Where are the departments located?')" class="group bg-dark-card/60 hover:bg-dark-card border border-dark-border hover:border-brand-500/50 p-4 rounded-2xl text-left transition-all duration-200">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="font-bold text-xs text-slate-200 group-hover:text-brand-500 transition">Office Locations</span>
+                            <i class="fa-solid fa-arrow-right text-[10px] text-slate-500 group-hover:text-brand-500 group-hover:translate-x-0.5 transition"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400">Where are departments located?</p>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- BOTTOM INPUT BAR CONTAINER -->
+        <footer class="p-4 md:p-6 bg-dark-bg/80 backdrop-blur-md border-t border-dark-border/60">
+            <form id="chatForm" class="max-w-4xl mx-auto relative flex items-center">
+                <input type="text" id="userInput" placeholder="Ask anything in plain English... (e.g., Average salary in IT)" 
+                       class="w-full bg-dark-card/90 border border-dark-border rounded-2xl pl-5 pr-14 py-4 text-xs md:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition shadow-inner">
+                
+                <button type="submit" class="absolute right-2 bg-gradient-to-tr from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-700 text-white w-10 h-10 rounded-xl flex items-center justify-center transition shadow-md shadow-brand-500/30 active:scale-95">
+                    <i class="fa-solid fa-arrow-up text-xs"></i>
+                </button>
+            </form>
+            <p class="text-center text-[10px] text-slate-500 mt-2 font-medium">
+                DataMind AI generates live SQL from natural language. Always double-check analytical queries.
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- JAVASCRIPT ENGINE -->
+    <script>
+        const chatContainer = document.getElementById('chatContainer');
+        const chatForm = document.getElementById('chatForm');
+        const userInput = document.getElementById('userInput');
+        const welcomeScreen = document.getElementById('welcomeScreen');
+
+        function clearChat() {
+            chatContainer.innerHTML = '';
+            chatContainer.appendChild(welcomeScreen);
+            welcomeScreen.classList.remove('hidden');
+        }
+
+        function sendSuggestion(text) {
+            userInput.value = text;
+            handleSend();
+        }
+
+        async function handleSend() {
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            // Hide Welcome Card on first message
+            if (welcomeScreen) welcomeScreen.classList.add('hidden');
+
+            // 1. Render User Bubble
+            appendUserMessage(message);
+            userInput.value = '';
+
+            // 2. Render Loading Indicator
+            const loadingId = appendLoadingIndicator();
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message })
+                });
+
+                const data = await response.json();
+                removeLoadingIndicator(loadingId);
+
+                if (data.error) {
+                    appendErrorMessage(data.error);
+                } else {
+                    appendBotTableResponse(data);
+                }
+            } catch (err) {
+                removeLoadingIndicator(loadingId);
+                appendErrorMessage("Failed to connect to Flask backend.");
+            }
+        }
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            handleSend();
+        });
+
+        // USER MESSAGE BUBBLE
+        function appendUserMessage(text) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'flex justify-end';
+
+            wrapper.innerHTML = `
+                <div class="bg-gradient-to-r from-brand-700 to-brand-600 text-white font-medium px-5 py-3.5 rounded-2xl rounded-tr-sm max-w-lg text-xs md:text-sm shadow-md">
+                    ${escapeHtml(text)}
+                </div>
+            `;
+
+            chatContainer.appendChild(wrapper);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // LOADING BOUNCING ANIMATION
+        function appendLoadingIndicator() {
+            const id = 'loading-' + Date.now();
+            const wrapper = document.createElement('div');
+            wrapper.id = id;
+            wrapper.className = 'flex justify-start';
+
+            wrapper.innerHTML = `
+                <div class="bg-dark-card border border-dark-border text-slate-300 p-4 rounded-2xl rounded-tl-sm text-xs flex items-center gap-3">
+                    <div class="w-6 h-6 rounded-lg bg-brand-500/20 text-brand-500 flex items-center justify-center">
+                        <i class="fa-solid fa-wand-magic-sparkles text-xs animate-pulse"></i>
+                    </div>
+                    <span class="font-medium text-slate-400">Translating query to SQL...</span>
+                    <div class="flex gap-1">
+                        <span class="w-1.5 h-1.5 bg-brand-500 rounded-full animate-bounce" style="animation-delay: 0s"></span>
+                        <span class="w-1.5 h-1.5 bg-brand-500 rounded-full animate-bounce" style="animation-delay: 0.15s"></span>
+                        <span class="w-1.5 h-1.5 bg-brand-500 rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
+                    </div>
+                </div>
+            `;
+
+            chatContainer.appendChild(wrapper);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            return id;
+        }
+
+        function removeLoadingIndicator(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        // BOT TABLE & SQL RESPONSE
+        function appendBotTableResponse(data) {
+            let tableHTML = '';
+            
+            if (data.rows && data.rows.length > 0) {
+                let headersTH = data.headers.map(h => `<th class="px-4 py-3 text-left font-bold text-brand-500 text-[11px] tracking-wider uppercase border-b border-dark-border bg-dark-sidebar/80">${h}</th>`).join('');
+                let rowsTR = data.rows.map(row => {
+                    let cells = row.map(c => `<td class="px-4 py-3 text-xs border-b border-dark-border/40 text-slate-300 font-medium">${c}</td>`).join('');
+                    return `<tr class="hover:bg-dark-hover/60 transition-colors">${cells}</tr>`;
+                }).join('');
+
+                tableHTML = `
+                    <div class="overflow-x-auto border border-dark-border rounded-xl bg-dark-bg/90 mt-3 shadow-inner">
+                        <table class="w-full text-left border-collapse">
+                            <thead><tr>${headersTH}</tr></thead>
+                            <tbody>${rowsTR}</tbody>
+                        </table>
+                    </div>
+                `;
+            } else {
+                tableHTML = `<div class="p-4 bg-dark-bg/60 border border-dark-border rounded-xl text-xs text-slate-400 italic">No matching database records found.</div>`;
+            }
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'flex justify-start';
+
+            wrapper.innerHTML = `
+                <div class="bg-dark-card border border-dark-border text-slate-200 p-5 rounded-2xl rounded-tl-sm max-w-3xl w-full space-y-3.5 shadow-xl">
+                    <!-- Bot Header -->
+                    <div class="flex items-center justify-between pb-2 border-b border-dark-border/60">
+                        <div class="flex items-center gap-2 text-brand-500 font-bold text-xs">
+                            <i class="fa-solid fa-sparkles"></i> DataMind AI Response
+                        </div>
+                        <span class="text-[10px] text-slate-400 bg-dark-bg px-2 py-0.5 rounded-md border border-dark-border">${data.row_count} rows returned</span>
+                    </div>
+
+                    <!-- Code Box (Dark Terminal Style) -->
+                    <div class="bg-dark-bg/90 p-3.5 rounded-xl border border-dark-border/80 font-mono text-xs text-slate-300">
+                        <div class="flex justify-between items-center text-[10px] text-slate-400 mb-1.5 font-sans">
+                            <span class="font-bold text-brand-500 flex items-center gap-1.5">
+                                <i class="fa-solid fa-code"></i> GENERATED SQL QUERY
+                            </span>
+                        </div>
+                        <code class="text-indigo-300 leading-relaxed">${escapeHtml(data.sql)}</code>
+                    </div>
+
+                    <!-- Data Table -->
+                    ${tableHTML}
+                </div>
+            `;
+
+            chatContainer.appendChild(wrapper);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // ERROR MESSAGE DISPLAY
+        function appendErrorMessage(errText) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'flex justify-start';
+
+            wrapper.innerHTML = `
+                <div class="bg-red-500/10 border border-red-500/30 text-red-300 p-4 rounded-2xl text-xs max-w-lg space-y-1">
+                    <div class="font-bold flex items-center gap-2 text-red-400">
+                        <i class="fa-solid fa-circle-exclamation"></i> Error Processing Query
+                    </div>
+                    <p class="text-red-300/80">${escapeHtml(errText)}</p>
+                </div>
+            `;
+
+            chatContainer.appendChild(wrapper);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+</html>
